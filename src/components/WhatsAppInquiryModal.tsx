@@ -41,11 +41,11 @@ export function WhatsAppInquiryModal({ isOpen, message, onClose }: WhatsAppInqui
       aria-modal="true"
       aria-labelledby="whatsapp-modal-title"
     >
-      <div className="bg-[#F9F6F0] border border-[#1E1E1E]/15 rounded-lg max-w-xl w-full shadow-xl overflow-hidden">
-        <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-[#1E1E1E]/10 bg-white">
-          <div className="flex items-center gap-2.5">
-            <MessageCircle className="w-5 h-5 text-[#5C715E]" aria-hidden="true" />
-            <h3 id="whatsapp-modal-title" className="font-editorial text-2xl font-medium text-[#1E1E1E]">
+      <div className="bg-[#F9F6F0] border border-[#1E1E1E]/15 rounded-lg max-w-xl w-full max-h-[90dvh] flex flex-col shadow-xl overflow-hidden">
+        <div className="flex items-center justify-between gap-4 px-5 sm:px-6 py-4 border-b border-[#1E1E1E]/10 bg-white shrink-0">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <MessageCircle className="w-5 h-5 text-[#5C715E] shrink-0" aria-hidden="true" />
+            <h3 id="whatsapp-modal-title" className="font-editorial text-xl sm:text-2xl font-medium text-[#1E1E1E] truncate">
               Ready-to-Send WhatsApp Inquiry
             </h3>
           </div>
@@ -53,19 +53,19 @@ export function WhatsAppInquiryModal({ isOpen, message, onClose }: WhatsAppInqui
             type="button"
             onClick={onClose}
             aria-label="Close WhatsApp inquiry preview"
-            className="w-9 h-9 inline-flex items-center justify-center rounded-md text-[#1E1E1E]/70 hover:text-[#1E1E1E] hover:bg-[#F2EDE3] transition-colors cursor-pointer"
+            className="w-10 h-10 inline-flex items-center justify-center rounded-md text-[#1E1E1E]/70 hover:text-[#1E1E1E] hover:bg-[#F2EDE3] transition-colors shrink-0 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 space-y-4">
+        <div className="p-5 sm:p-6 space-y-4 overflow-y-auto flex-1">
           <p className="text-sm text-[#1E1E1E]/75">
             Your custom doorgift specification has been formatted for our bridal concierge. Launch
             WhatsApp directly or copy the summary below.
           </p>
 
-          <pre className="bg-white border border-[#1E1E1E]/12 rounded-md p-4 text-xs sm:text-[13px] leading-relaxed text-[#1E1E1E] whitespace-pre-wrap font-sans max-h-72 overflow-y-auto">
+          <pre className="bg-white border border-[#1E1E1E]/12 rounded-md p-4 text-xs sm:text-[13px] leading-relaxed text-[#1E1E1E] whitespace-pre-wrap font-sans max-h-64 sm:max-h-72 overflow-y-auto">
             {message}
           </pre>
 

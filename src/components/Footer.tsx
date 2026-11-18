@@ -77,10 +77,15 @@ export function Footer({ onNavigate }: FooterProps) {
             <p className="text-xs uppercase tracking-[0.14em] text-[#C5A059] font-semibold">
               Atelier Inquiries
             </p>
-            <p className="text-sm text-[#F9F6F0]/80">concierge@atma-perfumery.com</p>
-            <p className="text-sm text-[#F9F6F0]/70">Kuala Lumpur · Malaysia</p>
+            <a
+              href="mailto:atmaswk@gmail.com"
+              className="block text-sm text-[#F9F6F0]/85 hover:text-[#F9F6F0] underline-offset-4 hover:underline transition-colors"
+            >
+              atmaswk@gmail.com
+            </a>
+            <p className="text-sm text-[#F9F6F0]/70">Kota Samarahan, Sarawak, Malaysia</p>
             <p className="text-xs text-[#F9F6F0]/55 pt-1">
-              By appointment for private scent discovery & sample sign-off.
+              By appointment for private scent discovery &amp; sample sign-off.
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@ import type { ConfiguratorState } from './utils/quoteLogic';
 const INITIAL_CONFIGURATOR_STATE: ConfiguratorState = {
   coupleNames: 'Den & Nisya',
   weddingDate: '2026-12-12',
-  venueLocation: 'Glasshouse Seputeh, Kuala Lumpur',
+  venueLocation: 'Kota Samarahan, Sarawak',
   guestCount: 100,
   budgetPerGuestMYR: 18,
   fragranceConcept: 'atma_curated',

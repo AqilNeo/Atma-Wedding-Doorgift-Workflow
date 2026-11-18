@@ -56,7 +56,10 @@ const PLANNER_SPECS = [
 
 export function LivePerfumeBar({ onSelectLiveBarInBuilder }: LivePerfumeBarProps) {
   return (
-    <section id="perfume-bar" className="py-16 sm:py-24 bg-[#F2EDE3]/70 border-y border-[#1E1E1E]/10">
+    <section
+      id="perfume-bar"
+      className="scroll-mt-20 py-14 sm:py-24 bg-[#F2EDE3]/70 border-y border-[#1E1E1E]/10"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
           {/* Left Visual Column */}
@@ -71,8 +74,8 @@ export function LivePerfumeBar({ onSelectLiveBarInBuilder }: LivePerfumeBarProps
             </div>
 
             {/* Secondary Lab Craft Detail Strip */}
-            <div className="grid grid-cols-12 gap-4 bg-[#F9F6F0] border border-[#1E1E1E]/10 rounded-lg p-4 items-center">
-              <div className="col-span-4 aspect-[4/3] rounded overflow-hidden bg-[#F2EDE3]">
+            <div className="flex items-center gap-3.5 sm:grid sm:grid-cols-12 sm:gap-4 bg-[#F9F6F0] border border-[#1E1E1E]/10 rounded-lg p-3.5 sm:p-4">
+              <div className="w-24 h-24 sm:w-full sm:h-auto sm:aspect-[4/3] sm:col-span-4 shrink-0 rounded overflow-hidden bg-[#F2EDE3]">
                 <SafeImage
                   src={LAB_CRAFT_IMAGE}
                   alt="ATMA perfumer compounding botanical fragrance oils on analytical lab scale"
@@ -80,7 +83,7 @@ export function LivePerfumeBar({ onSelectLiveBarInBuilder }: LivePerfumeBarProps
                   className="w-full h-full object-cover object-[50%_78%]"
                 />
               </div>
-              <div className="col-span-8">
+              <div className="min-w-0 flex-1 sm:col-span-8">
                 <p className="text-[11px] uppercase tracking-[0.12em] text-[#5C715E] font-semibold">
                   Small-Batch Formulation
                 </p>

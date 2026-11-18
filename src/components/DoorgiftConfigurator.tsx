@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AlertCircle,
   Check,
@@ -34,6 +34,44 @@ const CORE_NOTES: CoreScentNote[] = ['Floral', 'Woody', 'Citrus', 'Musky', 'Spic
 export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfiguratorProps) {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [showMobileBar, setShowMobileBar] = useState(false);
+
+  useEffect(() => {
+    const configuratorEl = document.getElementById('configurator');
+    const summaryEl = document.getElementById('live-summary');
+    if (!configuratorEl || !summaryEl || typeof IntersectionObserver === 'undefined') return;
+
+    let inConfigurator = false;
+    let summaryVisible = false;
+
+    const updateVisibility = () => {
+      setShowMobileBar(inConfigurator && !summaryVisible);
+    };
+
+    const configObserver = new IntersectionObserver(
+      ([entry]) => {
+        inConfigurator = entry.isIntersecting;
+        updateVisibility();
+      },
+      { threshold: 0.05 }
+    );
+
+    const summaryObserver = new IntersectionObserver(
+      ([entry]) => {
+        summaryVisible = entry.isIntersecting;
+        updateVisibility();
+      },
+      { threshold: 0.15 }
+    );
+
+    configObserver.observe(configuratorEl);
+    summaryObserver.observe(summaryEl);
+
+    return () => {
+      configObserver.disconnect();
+      summaryObserver.disconnect();
+    };
+  }, []);
 
   const estimate = calculateQuoteEstimate(state);
   const selectedBottle = BOTTLE_SIZES.find((b) => b.id === state.bottleSize) ?? BOTTLE_SIZES[0];
@@ -57,7 +95,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
   };
 
   return (
-    <section id="configurator" className="py-16 sm:py-24 bg-[#F9F6F0]">
+    <section id="configurator" className="scroll-mt-20 py-14 sm:py-24 bg-[#F9F6F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading & Step Quick-Nav */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 mb-10 border-b border-[#1E1E1E]/10">
@@ -77,7 +115,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
           <div
             role="tablist"
             aria-label="Configurator Steps"
-            className="flex flex-wrap items-center gap-1.5 bg-[#F2EDE3] p-1.5 rounded-lg border border-[#1E1E1E]/10"
+            className="flex items-center gap-1.5 bg-[#F2EDE3] p-1.5 rounded-lg border border-[#1E1E1E]/10 overflow-x-auto max-w-full sm:flex-wrap"
           >
             {[
               { step: 1, label: '01 Event', target: 'step-1' },
@@ -127,7 +165,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
+                <div className="min-w-0">
                   <label
                     htmlFor="couple-names"
                     className="block text-xs font-semibold text-[#1E1E1E] mb-1.5"
@@ -140,11 +178,11 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                     value={state.coupleNames}
                     onChange={(e) => updateField('coupleNames', e.target.value)}
                     placeholder="e.g., Den & Nisya"
-                    className="w-full px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] placeholder:text-[#1E1E1E]/40 focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
+                    className="w-full min-w-0 px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] placeholder:text-[#1E1E1E]/40 focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
                   />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <label
                     htmlFor="wedding-date"
                     className="block text-xs font-semibold text-[#1E1E1E] mb-1.5"
@@ -156,11 +194,11 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                     type="date"
                     value={state.weddingDate}
                     onChange={(e) => updateField('weddingDate', e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
+                    className="w-full min-w-0 min-h-[42px] appearance-none px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
                   />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div className="sm:col-span-2 min-w-0">
                   <label
                     htmlFor="venue-location"
                     className="block text-xs font-semibold text-[#1E1E1E] mb-1.5"
@@ -172,8 +210,8 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                     type="text"
                     value={state.venueLocation}
                     onChange={(e) => updateField('venueLocation', e.target.value)}
-                    placeholder="e.g., Glasshouse Seputeh, Kuala Lumpur"
-                    className="w-full px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] placeholder:text-[#1E1E1E]/40 focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
+                    placeholder="e.g., Kota Samarahan, Sarawak"
+                    className="w-full min-w-0 px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] placeholder:text-[#1E1E1E]/40 focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
                   />
                 </div>
 
@@ -588,7 +626,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                 <span className="text-xs text-[#1E1E1E]/55">Custom Couple Monogram</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-5">
                 {PACKAGING_OPTIONS.map((pkg, idx) => {
                   const isSelected = state.packagingStyle === pkg.id;
                   return (
@@ -597,7 +635,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                       type="button"
                       aria-pressed={isSelected}
                       onClick={() => updateField('packagingStyle', pkg.id)}
-                      className={`group text-left rounded-lg border overflow-hidden transition-all duration-150 cursor-pointer flex flex-col ${
+                      className={`group text-left rounded-lg border overflow-hidden transition-all duration-150 cursor-pointer flex flex-row sm:flex-col ${
                         idx === 4 ? 'sm:col-span-2 sm:grid sm:grid-cols-12' : ''
                       } ${
                         isSelected
@@ -606,10 +644,10 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                       }`}
                     >
                       <div
-                        className={`relative overflow-hidden bg-[#F2EDE3] ${
+                        className={`relative overflow-hidden bg-[#F2EDE3] shrink-0 ${
                           idx === 4
-                            ? 'aspect-[4/5] sm:aspect-auto sm:col-span-5 sm:min-h-[220px]'
-                            : 'aspect-[4/5] w-full'
+                            ? 'w-28 aspect-[3/4] sm:w-full sm:aspect-auto sm:col-span-5 sm:min-h-[220px]'
+                            : 'w-28 aspect-[3/4] sm:aspect-[4/5] sm:w-full'
                         }`}
                       >
                         <SafeImage
@@ -621,13 +659,13 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                       </div>
 
                       <div
-                        className={`p-4 sm:p-5 flex flex-col justify-between flex-1 ${
+                        className={`p-3.5 sm:p-5 flex flex-col justify-between flex-1 min-w-0 ${
                           idx === 4 ? 'sm:col-span-7' : ''
                         }`}
                       >
                         <div>
                           <div className="flex items-start justify-between gap-2">
-                            <p className="font-editorial text-xl font-medium text-[#1E1E1E]">
+                            <p className="font-editorial text-lg sm:text-xl font-medium text-[#1E1E1E] leading-snug">
                               {pkg.name}
                             </p>
                             {isSelected && (
@@ -637,12 +675,12 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                               />
                             )}
                           </div>
-                          <p className="text-xs text-[#1E1E1E]/70 leading-relaxed mt-1.5">
+                          <p className="text-xs text-[#1E1E1E]/70 leading-relaxed mt-1 sm:mt-1.5">
                             {pkg.shortDesc}
                           </p>
                         </div>
 
-                        <div className="pt-3 mt-4 border-t border-[#1E1E1E]/10 flex items-center justify-between gap-2">
+                        <div className="pt-2.5 mt-3 sm:pt-3 sm:mt-4 border-t border-[#1E1E1E]/10 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2">
                           <span className="text-[11px] text-[#5C715E] font-medium">
                             {pkg.bestFor}
                           </span>
@@ -999,7 +1037,7 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
                     <span>Send Configuration via WhatsApp</span>
                   </button>
 
-                  <div className="flex items-center justify-between text-xs text-[#1E1E1E]/60 pt-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#1E1E1E]/60 pt-1">
                     <span>Complimentary sample sign-off before production</span>
                     <button
                       type="button"
@@ -1017,24 +1055,29 @@ export function DoorgiftConfigurator({ state, onChange, onReset }: DoorgiftConfi
         </div>
       </div>
 
-      {/* Compact Mobile-Only Summary Bar (52px height, total sticky <= 14% of 844px viewport) */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-[#1E1E1E] text-[#F9F6F0] border-t border-[#F9F6F0]/15 px-4 h-[52px] flex items-center justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-[11px] text-[#F9F6F0]/70 truncate">
-            {state.guestCount} × {selectedBottle.label} · {selectedPackaging.name}
-          </p>
-          <p className="text-sm font-semibold tabular-nums leading-tight">
-            Est. RM {estimate.estimatedTotalMYR.toLocaleString()}
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => jumpToStep(5, 'live-summary')}
-          className="px-3.5 py-1.5 text-xs font-semibold bg-[#5C715E] hover:bg-[#475849] text-[#F9F6F0] rounded-md whitespace-nowrap shrink-0 cursor-pointer"
+      {/* Compact Mobile-Only Summary Bar (shown only while configuring Steps 1–5) */}
+      {showMobileBar && (
+        <div
+          data-testid="mobile-summary-bar"
+          className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-[#1E1E1E] text-[#F9F6F0] border-t border-[#F9F6F0]/15 px-4 h-[52px] flex items-center justify-between gap-3"
         >
-          Review &amp; Send
-        </button>
-      </div>
+          <div className="min-w-0">
+            <p className="text-[11px] text-[#F9F6F0]/70 truncate">
+              {state.guestCount} × {selectedBottle.label} · {selectedPackaging.name}
+            </p>
+            <p className="text-sm font-semibold tabular-nums leading-tight">
+              Est. RM {estimate.estimatedTotalMYR.toLocaleString()}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => jumpToStep(5, 'live-summary')}
+            className="px-3.5 py-1.5 text-xs font-semibold bg-[#5C715E] hover:bg-[#475849] text-[#F9F6F0] rounded-md whitespace-nowrap shrink-0 cursor-pointer"
+          >
+            Review &amp; Send
+          </button>
+        </div>
+      )}
 
       <WhatsAppInquiryModal
         isOpen={modalOpen}

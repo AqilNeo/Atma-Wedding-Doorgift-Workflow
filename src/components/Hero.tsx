@@ -76,8 +76,8 @@ export function Hero({ onNavigate }: HeroProps) {
           </div>
 
           {/* Right Editorial Photography Composition */}
-          <div className="lg:col-span-6 grid grid-cols-12 gap-4 items-stretch min-h-[380px] sm:min-h-[460px]">
-            <div className="col-span-7 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3]">
+          <div className="lg:col-span-6 grid grid-cols-12 gap-3 sm:gap-4 items-stretch sm:min-h-[460px]">
+            <div className="col-span-12 sm:col-span-7 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3] aspect-[4/3] sm:aspect-auto">
               <SafeImage
                 src={featuredPackaging.image}
                 alt={featuredPackaging.imageAlt}
@@ -94,16 +94,16 @@ export function Hero({ onNavigate }: HeroProps) {
               </div>
             </div>
 
-            <div className="col-span-5 flex flex-col gap-4">
-              <div className="flex-1 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3]">
+            <div className="col-span-12 sm:col-span-5 grid grid-cols-2 sm:flex sm:flex-col gap-3 sm:gap-4">
+              <div className="aspect-square sm:aspect-auto sm:flex-1 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3]">
                 <SafeImage
                   src={LIVE_BAR_IMAGE}
                   alt="ATMA Live Bespoke Perfume Bar counter with glass dispenser columns"
                   fallbackTitle="Live Perfume Bar"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E1E1E]/75 via-[#1E1E1E]/25 to-transparent p-3.5">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-[#F9F6F0]/85">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E1E1E]/75 via-[#1E1E1E]/25 to-transparent p-3 sm:p-3.5">
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] text-[#F9F6F0]/85">
                     Interactive
                   </p>
                   <p className="font-editorial text-base sm:text-lg text-[#F9F6F0]">
@@ -112,15 +112,15 @@ export function Hero({ onNavigate }: HeroProps) {
                 </div>
               </div>
 
-              <div className="flex-1 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3]">
+              <div className="aspect-square sm:aspect-auto sm:flex-1 relative rounded-lg overflow-hidden border border-[#1E1E1E]/10 bg-[#F2EDE3]">
                 <SafeImage
                   src={secondaryPackaging.image}
                   alt={secondaryPackaging.imageAlt}
                   fallbackTitle={secondaryPackaging.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E1E1E]/75 via-[#1E1E1E]/25 to-transparent p-3.5">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-[#F9F6F0]/85">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E1E1E]/75 via-[#1E1E1E]/25 to-transparent p-3 sm:p-3.5">
+                  <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.12em] text-[#F9F6F0]/85">
                     VIP Entourage
                   </p>
                   <p className="font-editorial text-base sm:text-lg text-[#F9F6F0]">

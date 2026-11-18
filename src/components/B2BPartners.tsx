@@ -37,7 +37,7 @@ export function B2BPartners() {
   };
 
   return (
-    <section id="b2b-partners" className="py-16 sm:py-24 bg-[#F9F6F0]">
+    <section id="b2b-partners" className="scroll-mt-20 py-14 sm:py-24 bg-[#F9F6F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: B2B Value Proposition & 3 Partner Benefits */}
@@ -161,7 +161,7 @@ export function B2BPartners() {
                         type="text"
                         value={form.companyName}
                         onChange={(e) => setForm({ ...form, companyName: e.target.value })}
-                        placeholder="e.g., Atelier Weddings KL"
+                        placeholder="e.g., Atelier Weddings Sarawak"
                         className="w-full px-3.5 py-2.5 text-sm bg-[#F9F6F0]/60 border border-[#1E1E1E]/20 rounded-md text-[#1E1E1E] placeholder:text-[#1E1E1E]/40 focus:outline-none focus:border-[#5C715E] focus:ring-1 focus:ring-[#5C715E]"
                       />
                       {errors.companyName && (
