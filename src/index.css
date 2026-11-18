@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-cream: #F9F6F0;
+  --color-linen: #F2EDE3;
+  --color-ink: #1E1E1E;
+  --color-sage: #5C715E;
+  --color-sage-dark: #475849;
+  --color-gold: #C5A059;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #F9F6F0;
+    color: #1E1E1E;
+  }
+
+  h1, h2, h3, .font-editorial {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom subtle range slider styling */
+input[type="range"].atma-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].atma-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: #DFD8CA;
+}
+
+input[type="range"].atma-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #5C715E;
+  border: 3px solid #F9F6F0;
+  box-shadow: 0 1px 4px rgba(30, 30, 30, 0.25);
+  margin-top: -8px;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input[type="range"].atma-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

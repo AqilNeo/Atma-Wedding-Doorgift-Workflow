@@ -1,0 +1,8 @@
+{
+  "name": "ATMA Wedding Doorgift Perfume",
+  "description": "Bespoke wedding perfume doorgifts, botanical stationery packaging, and interactive live perfume bars curated by atma°.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
